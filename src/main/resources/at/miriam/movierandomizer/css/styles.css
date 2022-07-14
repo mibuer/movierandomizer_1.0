@@ -1,0 +1,88 @@
+
+Label {
+	
+	-fx-font: 12 "Verdana";
+	
+}
+
+TextField {
+	
+	-fx-border-color: black;
+	-fx-background-color: #9bebd5;
+	-fx-border-radius: 3;
+	-fx-prompt-text-fill: grey;
+	
+	
+} 
+
+AnchorPane {
+	
+	-fx-background-color: #9bebd5;	
+	
+}
+
+Pane {
+	
+	-fx-background-color: #9bebd5;	
+	
+}
+
+ChoiceBox {
+	
+	-fx-border-color: black;
+	-fx-background-color: #9bebd5;
+	-fx-border-radius: 3;
+}
+
+Button {
+	
+	-fx-text-fill: black;
+	-fx-border-color: black;
+	-fx-background-color: #9bebd5;
+	-fx-border-radius: 20;
+	
+
+	}
+
+ListView {
+	-fx-background-color: #9bebd5;	
+	-fx-border-color: black;
+	-fx-border-radius: 3;
+}
+
+
+
+.button:hover {
+	
+	/*-fx-background-color: #bedbcc;*/
+	-fx-border-radius: 20;
+	-fx-border-color: black;
+
+    -fx-scale-y: 1.1;
+    -fx-scale-z: 1.1;
+   
+}
+
+.button:pressed {
+	
+	 -fx-font: 12 "Verdana";
+	 -fx-background-color: #bedbcc;
+}
+
+#startViewHeader {
+	
+	-fx-font: 25 "Verdana";
+	-fx-font-weight: bold;
+}
+
+#selectedMovieLabel {
+	
+	-fx-font: 12 "Verdana";
+	-fx-font-weight: bold;
+
+}
+
+#showResultLabel {
+	-fx-font: 16 "Verdana";
+	
+}

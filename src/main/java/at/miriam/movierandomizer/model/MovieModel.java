@@ -10,6 +10,8 @@ public class MovieModel {
 	
 	public final ObservableList<Movie> moviesList = FXCollections.observableArrayList();
 	
+	public final ObservableList<Movie> moviesDBList = FXCollections.observableArrayList();
+	
 	public final ObservableList<Genre> genreList = FXCollections.observableArrayList(Genre.ACTION, Genre.ANIME, Genre.COMMEDY, Genre.CRIME,
 																			Genre.DRAMA, Genre.FANTASY, Genre.HORROR, Genre.ROMANCE, Genre.SCIFI, 
 																			Genre.SUPERHERO, Genre.THRILLER, Genre.ZOMBIE);
@@ -31,6 +33,8 @@ public class MovieModel {
 //	
 	
 	public MovieModel() {
+		
+		
 		
 	}
 	

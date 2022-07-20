@@ -93,7 +93,7 @@ public class StartViewController extends BaseController {
     	//damit können andere Controller darauf zugreifen
     	RandomMovie.getInstance().setRandMovie(randomMovie);
     	
-    	System.out.println("*************************RandomMovie************************************");
+    	System.out.println("*************************First RandomMovie************************************");
     	System.out.println(randomMovie);
     
     	

@@ -53,8 +53,13 @@ public class RandomizeMovieController extends BaseController {
     	
     	okButton.disabledProperty();
     	
+    	//füge alle 3 Movies der DBList hinzu, die moviesList wird gelöscht
+    	model.moviesDBList.addAll(model.moviesList);
+    	System.out.println("*************************Movies DB List*********************");
+    	System.out.println(model.moviesDBList);
+    	model.moviesList.clear();
     	
-    	   	
+    	
     }
 
     @FXML
@@ -65,36 +70,50 @@ public class RandomizeMovieController extends BaseController {
     	Random random = new Random();
     	
     	int randomIndex = random.nextInt(model.moviesList.size());
-    	Movie randomMovie = model.moviesList.get(randomIndex);
+    	Movie secondRandomMovie = model.moviesList.get(randomIndex);
     	
     	RandomMovie randomSingeltonMovie = RandomMovie.getInstance();
         
-        Movie newRandomMovie = randomSingeltonMovie.getRandMovie();
+        Movie firstRandomMovie = randomSingeltonMovie.getRandMovie();
     	
-    	if (randomMovie.equals(newRandomMovie)) {
+        //falls der 2. Zufallsfilm, dem ersten entspricht, entferne ihn aus der Liste
+    	if (secondRandomMovie.equals(firstRandomMovie)) {
     		model.moviesList.remove(randomIndex);
     	}
-    	//aus den letzten beiden Filmen wird einer ausgewählt
+    	//aus den letzten beiden Filmen wird der finalMovie ausgewählt
+    	//und im Label angezeigt
     	int randIndex = random.nextInt(model.moviesList.size());
     	Movie finalMovie = model.moviesList.get(randIndex);
     	
     	selectedMovieLabel.setText(finalMovie.toString());
     	
-    	
     	//Update finalMovie auf watched=true
-    	finalMovie.setWatched(true);
     	//update moviesList am gleichen index 
+    	finalMovie.setWatched(true);
     	int index = model.moviesList.indexOf(finalMovie);
     	model.moviesList.set(index, finalMovie);
+    	
+    	//füge den 2. Zufallsfilm wieder zu Liste hinzu, fall er vorher entfernt wurde!
+    	if (!model.moviesList.contains(firstRandomMovie)) {
+    		model.moviesList.add(firstRandomMovie);    	
+    	}
     	
     	System.out.println("*****************Updated finalMovie**********************");
     	System.out.println(model.moviesList.get(index));
     	
     	showResultLabel.setText("Have fun with your movie!");
-    	
     	okButton.setDisable(true);
     	secondTryButton.setDisable(true);
     	
+    	//der finalMovie wird mit watched=true in der DB gespeichert, die anderen beiden mit false
+    	System.out.println("******************Updated List of Movies*****************************");
+    	System.out.println(model.moviesList);
+    	
+    	//füge alle 3 Movies der DBList hinzu, die moviesList wird gelöscht
+    	model.moviesDBList.addAll(model.moviesList);
+    	System.out.println("*************************Movies DB List*********************");
+    	System.out.println(model.moviesDBList);
+    	model.moviesList.clear();
     	
     	
     }

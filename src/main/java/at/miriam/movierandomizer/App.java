@@ -29,7 +29,7 @@ public class App extends Application {
 
     private static Parent loadFXML(String fxml) throws IOException {
     	//hier TabPane später einfügen
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(Constants.PATH_TO_START_VIEW));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(Constants.PATH_TO_TAB_PANE_VIEW));
         return fxmlLoader.load();
     }
 

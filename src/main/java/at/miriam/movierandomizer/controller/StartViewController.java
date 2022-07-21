@@ -2,6 +2,7 @@ package at.miriam.movierandomizer.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -77,7 +78,6 @@ public class StartViewController extends BaseController {
     @FXML
     void onRandomizeButtonClick(ActionEvent event) {
     	//neues Fenster öffnet sich und der zufällig ausgewählte Film wird angezeigt
-    		//Methode getLastThreeMovies, nur aus diesen auswählen
     	//Klick auf OK Button --> Movie watched = true 
     		//am alten Index der Liste Wert ändern 
     	//Klick auf 2ndTry --> Auswahl aus den beiden übrigen Filmen -> Anzeige des neu ausgewählten Films 
@@ -122,10 +122,11 @@ public class StartViewController extends BaseController {
     	Genre genre = genreChoiceBox.getValue();
     	String year = yearTextField.getText();
     	StreamingService streamingService = streamingServiceChoiceBox.getValue();
+    	LocalDate currentDate = LocalDate.now();
     	
     	if (isValidFormInput(title, director, genre, year, streamingService)) {
     		
-    		Movie movie = new Movie(title, director, genre, year, streamingService, false);
+    		Movie movie = new Movie(title, director, genre, year, streamingService, false, currentDate);
     		
     		System.out.println(movie);
     		

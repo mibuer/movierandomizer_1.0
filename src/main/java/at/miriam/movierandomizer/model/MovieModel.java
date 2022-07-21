@@ -1,6 +1,7 @@
 package at.miriam.movierandomizer.model;
 
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -19,18 +20,21 @@ public class MovieModel {
 																							new StreamingService("AmazonPrime"), new StreamingService("Arte Mediathek"),
 																							new StreamingService("Disney+"), new StreamingService("YouTube"));
 	
-//	public final ObjectProperty<Movie> selectedMovieProperty() {
-//		return this.selectedMovieProperty();		
-//	}
-//	
-//	public final Movie getSelectedMovie() {
-//		return this.selectedMovieProperty().get();
-//	}
-//	
-//	public final void setSelectedMovie (final Movie movie) {
-//		this.selectedMovieProperty().set(movie);
-//	}
-//	
+	
+	private final ObjectProperty<Movie> selectedMovie = new SimpleObjectProperty<>();
+	
+	public final ObjectProperty<Movie> selectedMovieProperty() {
+		return this.selectedMovie;		
+	}
+	
+	public final Movie getSelectedMovie() {
+		return this.selectedMovieProperty().get();
+	}
+	
+	public final void setSelectedMovie (final Movie selectedMovie) {
+		this.selectedMovieProperty().set(selectedMovie);
+	}
+	
 	
 	public MovieModel() {
 		

@@ -1,11 +1,16 @@
 package at.miriam.movierandomizer.controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+
 import at.miriam.movierandomizer.model.Genre;
 import at.miriam.movierandomizer.model.Movie;
 import at.miriam.movierandomizer.model.StreamingService;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -16,6 +21,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.RadioButton;
 
 public class TableViewMovieController extends BaseController {
 
@@ -57,17 +63,71 @@ public class TableViewMovieController extends BaseController {
 
     @FXML
     private TableColumn<Movie, String> yearColumn;
+
+	@FXML 
+	private RadioButton radioButtonWatched;
+
+	@FXML 
+	private RadioButton radioButtonNotWatched;
+
+	@FXML 
+	private Button watchMovieFromTableButton;
     
 
     @FXML
     void onDeleteTableButtonClick(ActionEvent event) {
 
+    	//moviesDBlist am gewählten Index löschen
+    	Movie movie = model.getSelectedMovie();
+    	if (movie != null) {
+    		model.moviesDBList.remove(movie);
+    		tableView.getSelectionModel().clearSelection();
+    	}
     }
 
-    @FXML
-    void onUpdateTableButtonClick(ActionEvent event) {
+  
+	@FXML public void onRadioButtonNotWatchedClick(ActionEvent event) {
+		
+		//zeige alle Filme moviesDBlist -> watched = false;
+		List<Movie> moviesNotWatched = model.moviesDBList.stream()
+											.filter(m -> m.isWatched() == false)
+											.collect(Collectors.toList());
+		
+		ObservableList<Movie> moviesNotWatchedObservable = FXCollections.observableArrayList(moviesNotWatched);
 
-    }
+		tableView.setItems(moviesNotWatchedObservable);
+	}
+
+	@FXML public void onWatchMovieFromTableButtonClick(ActionEvent event) {
+		
+		//set movie auf watched = true;
+		Movie movie = model.getSelectedMovie();
+    	if (movie != null) {
+    		movie.setWatched(true);
+    		int index = model.moviesDBList.indexOf(movie);
+    		model.moviesDBList.set(index, movie);
+    		System.out.println("****************Watch Movie From Table***********************");
+    		System.out.println(model.moviesDBList.get(index));
+    	}
+		
+		
+	}
+
+	@FXML public void onRadioButtonWatchedClick(ActionEvent event) {
+		
+		//zeige alle Filme moviesDBlist -> watched = true;
+		List<Movie> moviesWatched = model.moviesDBList.stream()
+				.filter(m -> m.isWatched() == true)
+				.collect(Collectors.toList());
+
+		ObservableList<Movie> moviesWatchedObservable = FXCollections.observableArrayList(moviesWatched);
+
+		tableView.setItems(moviesWatchedObservable);
+		
+	}
+	
+	
+	
 
     @FXML
     void initialize() {
@@ -84,7 +144,7 @@ public class TableViewMovieController extends BaseController {
         assert yearColumn != null : "fx:id=\"yearColumn\" was not injected: check your FXML file 'movieTableView.fxml'.";
 
         
-        tableView.setItems(model.moviesList);
+        tableView.setItems(model.moviesDBList);
         
         genreColumn.setCellValueFactory(data -> new SimpleObjectProperty<Genre>(data.getValue().getGenre()));
         titleColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getTitle()));
@@ -150,5 +210,7 @@ public class TableViewMovieController extends BaseController {
         
         
     }
+
+
 
 }

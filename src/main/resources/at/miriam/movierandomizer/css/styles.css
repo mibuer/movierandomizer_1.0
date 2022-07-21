@@ -69,6 +69,19 @@ ListView {
 	 -fx-background-color: #bedbcc;
 }
 
+.tab {
+	 -fx-font: 12 "Verdana";
+	-fx-background-color: #9bebd5;
+}
+
+.tab:hover {
+	
+	 -fx-scale-y: 1.1;
+     -fx-scale-z: 1.1;
+     -fx-border-color: black;
+	
+}
+
 #startViewHeader {
 	
 	-fx-font: 25 "Verdana";

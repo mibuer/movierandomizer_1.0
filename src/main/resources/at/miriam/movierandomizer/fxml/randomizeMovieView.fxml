@@ -10,8 +10,8 @@
    <children>
       <Pane prefHeight="300.0" prefWidth="500.0" stylesheets="@../css/styles.css">
          <children>
-            <Label layoutX="169.0" layoutY="33.0" text="You have to watch this movie: " />
-            <Label fx:id="selectedMovieLabel" layoutX="28.0" layoutY="62.0" prefHeight="50.0" prefWidth="449.0" />
+            <Label layoutX="194.0" layoutY="35.0" text="Here is your movie !" />
+            <Label fx:id="selectedMovieLabel" layoutX="28.0" layoutY="62.0" prefHeight="50.0" prefWidth="449.0" textAlignment="CENTER" />
             <ButtonBar layoutX="152.0" layoutY="130.0" prefHeight="40.0" prefWidth="156.0">
               <buttons>
                 <Button fx:id="okButton" mnemonicParsing="false" onAction="#onOKButtonClick" text="OK" />

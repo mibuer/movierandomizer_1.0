@@ -1,5 +1,7 @@
 package at.miriam.movierandomizer.model;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Movie {
@@ -11,6 +13,7 @@ public class Movie {
 	private String year;
 	private StreamingService streamingService;
 	private boolean watched = false;
+	private LocalDate currentDate = LocalDate.now();
 	
 	
 	
@@ -18,7 +21,7 @@ public class Movie {
 		super();
 	}
 
-	public Movie(String title, String director, Genre genre, String year, StreamingService streamingService, boolean watched) {
+	public Movie(String title, String director, Genre genre, String year, StreamingService streamingService, boolean watched, LocalDate currentDate) {
 		super();
 		this.title = title;
 		this.director = director;
@@ -26,6 +29,7 @@ public class Movie {
 		this.year = year;
 		this.streamingService = streamingService;
 		this.watched = watched;
+		this.setCurrentDate(currentDate);
 	}
 
 	public String getTitle() {
@@ -97,8 +101,19 @@ public class Movie {
 
 	@Override
 	public String toString() {
+		
+		String df = currentDate.format(DateTimeFormatter.ofPattern("dd.MM.yy"));
+		
 		return title + ", " + director + ", " + genre + ", " + year
-				+ ", " + streamingService + ", "+  watched + "\n";
+				+ ", " + streamingService + ", "+  watched +  " " + df + "\n";
+	}
+
+	public LocalDate getCurrentDate() {
+		return currentDate;
+	}
+
+	public void setCurrentDate(LocalDate currentDate) {
+		this.currentDate = currentDate;
 	}
 	
 	

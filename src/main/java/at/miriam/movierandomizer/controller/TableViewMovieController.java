@@ -21,6 +21,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.RadioButton;
 
 public class TableViewMovieController extends BaseController {
@@ -96,6 +97,8 @@ public class TableViewMovieController extends BaseController {
 		ObservableList<Movie> moviesNotWatchedObservable = FXCollections.observableArrayList(moviesNotWatched);
 
 		tableView.setItems(moviesNotWatchedObservable);
+		
+	
 	}
 
 	@FXML public void onWatchMovieFromTableButtonClick(ActionEvent event) {
@@ -113,7 +116,8 @@ public class TableViewMovieController extends BaseController {
 		
 	}
 
-	@FXML public void onRadioButtonWatchedClick(ActionEvent event) {
+	@FXML 
+	public void onRadioButtonWatchedClick(ActionEvent event) {
 		
 		//zeige alle Filme moviesDBlist -> watched = true;
 		List<Movie> moviesWatched = model.moviesDBList.stream()
@@ -124,7 +128,10 @@ public class TableViewMovieController extends BaseController {
 
 		tableView.setItems(moviesWatchedObservable);
 		
+
+	
 	}
+	
 	
 	
 	

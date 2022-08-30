@@ -1,16 +1,36 @@
 package at.miriam.movierandomizer.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class Movie {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class Movie implements Serializable {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Id @GeneratedValue (strategy = GenerationType.AUTO)
+	private long movieID;
 	private String title;
 	private String director;
+	@ManyToOne
+	@JoinColumn (name = "FK_GENRE_ID")
 	private Genre genre;
 	private String year;
+	@ManyToOne
+	@JoinColumn (name = "FK_STREAMING_ID")
 	private StreamingService streamingService;
 	private boolean watched = false;
 	private LocalDate currentDate = LocalDate.now();
@@ -21,8 +41,9 @@ public class Movie {
 		super();
 	}
 
-	public Movie(String title, String director, Genre genre, String year, StreamingService streamingService, boolean watched, LocalDate currentDate) {
+	public Movie(long movieID, String title, String director, Genre genre, String year, StreamingService streamingService, boolean watched, LocalDate currentDate) {
 		super();
+		this.setMovieID(movieID);
 		this.title = title;
 		this.director = director;
 		this.genre = genre;
@@ -79,6 +100,22 @@ public class Movie {
 	public void setWatched(boolean watched) {
 		this.watched = watched;
 	}
+	
+	public LocalDate getCurrentDate() {
+		return currentDate;
+	}
+
+	public void setCurrentDate(LocalDate currentDate) {
+		this.currentDate = currentDate;
+	}
+
+	public long getMovieID() {
+		return movieID;
+	}
+
+	public void setMovieID(long movieID) {
+		this.movieID = movieID;
+	}
 
 	@Override
 	public int hashCode() {
@@ -108,13 +145,7 @@ public class Movie {
 				+ ", " + streamingService + ", "+  watched +  " " + df + "\n";
 	}
 
-	public LocalDate getCurrentDate() {
-		return currentDate;
-	}
-
-	public void setCurrentDate(LocalDate currentDate) {
-		this.currentDate = currentDate;
-	}
+	
 	
 	
 	

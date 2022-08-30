@@ -1,17 +1,32 @@
 package at.miriam.movierandomizer.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class StreamingService {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
+public class StreamingService implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Id @GeneratedValue (strategy = GenerationType.AUTO)
+	private long streamingID;
 	private String name;
 
 	public StreamingService() {
 		super();
 	}
 
-	public StreamingService(String name) {
+	public StreamingService(long streamingID, String name) {
 		super();
+		this.setStreamingID(streamingID);
 		this.name = name;
 	}
 
@@ -21,6 +36,14 @@ public class StreamingService {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public long getStreamingID() {
+		return streamingID;
+	}
+
+	public void setStreamingID(long streamingID) {
+		this.streamingID = streamingID;
 	}
 
 	@Override
@@ -44,6 +67,8 @@ public class StreamingService {
 	public String toString() {
 		return name;
 	}
+
+	
 	
 	
 	

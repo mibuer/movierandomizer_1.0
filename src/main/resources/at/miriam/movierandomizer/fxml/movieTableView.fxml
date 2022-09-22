@@ -75,7 +75,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                      <tooltip>
-                        <Tooltip text="Mark row to update or delete a movie" />
+                        <Tooltip text="Mark row to delete a movie" />
                      </tooltip>
                   </TableView>
                </children>

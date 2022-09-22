@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -105,6 +106,8 @@ public class StartViewController extends BaseController {
 			e.printStackTrace();
 		}
     	
+    	
+    	
     }
 
 
@@ -126,9 +129,11 @@ public class StartViewController extends BaseController {
     	
     	if (isValidFormInput(title, director, genre, year, streamingService)) {
     		
-    		Movie movie = new Movie(title, director, genre, year, streamingService, false, currentDate);
+    		Movie movie = new Movie(0, title, director, genre, year, streamingService, false, currentDate);
     		
     		System.out.println(movie);
+    		
+    		//Überprüfen, ob Director bereits in der DB eingetragen ist
     		
     		model.moviesList.add(movie);
     		
@@ -166,9 +171,8 @@ public class StartViewController extends BaseController {
 		
     	titleTextField.setText("");
     	directorTextField.setText("");
-    	genreChoiceBox.setValue(null);
     	yearTextField.setText("");
-    	streamingServiceChoiceBox.setValue(null);
+    	
 
 	}
 
@@ -196,9 +200,9 @@ public class StartViewController extends BaseController {
         
         titleTextField.setPromptText("Herr der Ringe, Die Gefährten");
         directorTextField.setPromptText("Peter Jackson");
-        genreChoiceBox.setValue(Genre.FANTASY);
+        genreChoiceBox.setTooltip(new Tooltip("Please select a Genre from the List!"));
         yearTextField.setPromptText("2001");
-        streamingServiceChoiceBox.setValue(new StreamingService("Netflix"));
+        streamingServiceChoiceBox.setTooltip(new Tooltip("Please select your Streaming Service!"));
         
         
         

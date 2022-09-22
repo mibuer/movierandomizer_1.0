@@ -6,13 +6,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table (name = "MOVIE")
 public class Movie implements Serializable {
 	
 	
@@ -25,8 +29,7 @@ public class Movie implements Serializable {
 	private long movieID;
 	private String title;
 	private String director;
-	@ManyToOne
-	@JoinColumn (name = "FK_GENRE_ID")
+	@Enumerated(EnumType.STRING)
 	private Genre genre;
 	private String year;
 	@ManyToOne

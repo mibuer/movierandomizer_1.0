@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 
-public class TabPaneViewController {
+public class TabPaneViewController extends BaseController  {
 
     @FXML
     private ResourceBundle resources;
@@ -14,6 +14,7 @@ public class TabPaneViewController {
 
     @FXML
     void initialize() {
+    	
 
     }
 

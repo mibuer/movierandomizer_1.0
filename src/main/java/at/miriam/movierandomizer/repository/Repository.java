@@ -10,14 +10,16 @@ import jakarta.persistence.Persistence;
 
 public interface Repository<T> {
 
-	//EntityManager setupDatabaseConnection();
 	public static EntityManager em = setupDatabaseConnection();
 
+	
 	public static EntityManager setupDatabaseConnection() {
 
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("WineDB");
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MovieDB");
 		return emf.createEntityManager();
 	}
+	
+	
 	
 	void create (T entity) throws SQLException;
 	

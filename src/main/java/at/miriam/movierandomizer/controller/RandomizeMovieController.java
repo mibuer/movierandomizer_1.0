@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Popup;
+import javafx.stage.Stage;
 
 public class RandomizeMovieController extends BaseController {
 
@@ -32,7 +33,14 @@ public class RandomizeMovieController extends BaseController {
     @FXML
     private Label showResultLabel;
    
-
+    @FXML
+    public void onOkButtonClickCloseWindow(ActionEvent event) {
+    	
+    	 Stage stage = (Stage) okButton.getScene().getWindow();
+    	    stage.close();
+    }
+    
+    
     @FXML
     void onOKButtonClick(ActionEvent event) {
     	//möchte ich den Film anschauen, click auf OK
@@ -59,6 +67,7 @@ public class RandomizeMovieController extends BaseController {
     	System.out.println(model.moviesDBList);
     	model.moviesList.clear();
     	
+    	onOkButtonClickCloseWindow(event);
     	
     }
 

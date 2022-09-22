@@ -28,23 +28,4 @@ public class ValidateDatabaseValues {
 
 	}
 	
-	public Movie validateMovieTitle (Movie movie) {
-		
-		System.out.println("+++++++++++++++++++ Method validateMovieTitle +++++++++++++++++++++++++");
-		
-		final String JPQL_MOVIE_TITLE = "SELECT m FROM Movie m WHERE m.title = :title";
-		
-		TypedQuery<Movie> query = em.createQuery(JPQL_MOVIE_TITLE, Movie.class);
-		
-		query.setParameter("title", movie.getTitle());
-		
-		if(!query.getResultList().isEmpty()) {
-			System.out.println("Query Result List: " + query.getResultList());
-			System.out.println("Value found: " + movie.getTitle());
-			return query.getSingleResult();
-		}
-		
-		return null;
-	}
-	
 }

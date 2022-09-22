@@ -17,8 +17,6 @@ import javafx.collections.ObservableList;
 
 public class MovieModel {
 	
-//	Movie movie1 = new Movie("Lord of the Rings 1", "Peter Jackson", Genre.FANTASY, "2001", new StreamingService("AmazonPrime"), false, LocalDate.now());
-//	Movie movie2 = new Movie("Der Hobbit", "Peter Jackson", Genre.FANTASY, "2008", new StreamingService("Netflix"), true, LocalDate.now());
 	
 	private MovieRepository movieRepository = new MovieRepository();
 	private StreamingServiceRepository streamingRepository = new StreamingServiceRepository();
@@ -35,7 +33,8 @@ public class MovieModel {
 	public final ObservableList<Genre> genreList = FXCollections.observableArrayList(Genre.ACTION, Genre.ANIME, Genre.COMMEDY, Genre.CRIME,
 																			Genre.DRAMA, Genre.FANTASY, Genre.HORROR, Genre.ROMANCE, Genre.SCIFI, 
 																			Genre.SUPERHERO, Genre.THRILLER, Genre.ZOMBIE);
-	public final ObservableList<StreamingService> streamingServiceList = FXCollections.observableArrayList();
+	public final ObservableList<StreamingService> streamingServiceList = FXCollections.observableArrayList(new StreamingService(0, "Netflix"), new StreamingService(0, "Amazon Prime"), new StreamingService(0, "Disney+"),
+																				new StreamingService(0,"Arte"), new StreamingService(0, "YouTube"));
 	
 	
 	private final ObjectProperty<Movie> selectedMovie = new SimpleObjectProperty<>();
@@ -92,7 +91,7 @@ public class MovieModel {
 					for (Movie movie : c.getAddedSubList()) {
 						
 						try {
-						
+							//Validieren, ob director bereits vorhanden
 							createRelatedEntitiesIfNotExist(movie);
 							
 							movieRepository.create(movie);
@@ -186,6 +185,7 @@ public class MovieModel {
 		
 		System.out.println("+++++++++++++++++++ In Method createRelatedEntitiesIfNotExist ++++++++++++++++++++++++");
 		
+		
 		StreamingService existingService;
 		if ((existingService = dataValidation.validateStreamingService(movie.getStreamingService())) != null) {
 			movie.setStreamingService(existingService);
@@ -193,12 +193,6 @@ public class MovieModel {
 			streamingRepository.create(movie.getStreamingService());
 		}
 		
-		String existingMovieTitle;
-		if((existingMovieTitle = dataValidation.validateMovieTitle(movie).getTitle()) != null) {
-			movie.setTitle(existingMovieTitle);
-		} else {
-			movieRepository.create(movie);
-		}
 		
 	}
 	

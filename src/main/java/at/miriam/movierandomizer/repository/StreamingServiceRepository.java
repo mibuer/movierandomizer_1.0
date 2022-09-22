@@ -97,8 +97,15 @@ public class StreamingServiceRepository implements Repository<StreamingService> 
 
 	@Override
 	public void deleteWithID(long id) throws SQLException {
-		// TODO Auto-generated method stub
 		
+		EntityTransaction transaction = em.getTransaction();
+		transaction.begin();
+		
+		StreamingService serviceToDelete = em.find(StreamingService.class, id);
+		
+		em.remove(serviceToDelete);
+		
+		transaction.commit();
 	}
 	
 	

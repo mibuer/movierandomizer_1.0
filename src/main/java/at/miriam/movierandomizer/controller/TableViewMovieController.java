@@ -1,6 +1,7 @@
 package at.miriam.movierandomizer.controller;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -21,7 +22,6 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.control.RadioButton;
 
 public class TableViewMovieController extends BaseController {
@@ -60,9 +60,6 @@ public class TableViewMovieController extends BaseController {
     private Button updateMovieButton;
 
     @FXML
-    private TableColumn<Movie, String> watchedColumn;
-
-    @FXML
     private TableColumn<Movie, String> yearColumn;
 
 	@FXML 
@@ -73,6 +70,9 @@ public class TableViewMovieController extends BaseController {
 
 	@FXML 
 	private Button watchMovieFromTableButton;
+
+	@FXML 
+	private TableColumn<Movie, LocalDate> dateColumn;
     
 
     @FXML
@@ -138,26 +138,38 @@ public class TableViewMovieController extends BaseController {
 
     @FXML
     void initialize() {
+    	assert dateColumn != null : "fx:id=\"dateColumn\" was not injected: check your FXML file 'movieTableView.fxml'.";
         assert directorColumn != null : "fx:id=\"directorColumn\" was not injected: check your FXML file 'movieTableView.fxml'.";
         assert filterTableLabel != null : "fx:id=\"filterTableLabel\" was not injected: check your FXML file 'movieTableView.fxml'.";
         assert filterTableTextField != null : "fx:id=\"filterTableTextField\" was not injected: check your FXML file 'movieTableView.fxml'.";
         assert genreColumn != null : "fx:id=\"genreColumn\" was not injected: check your FXML file 'movieTableView.fxml'.";
+        assert radioButtonNotWatched != null : "fx:id=\"radioButtonNotWatched\" was not injected: check your FXML file 'movieTableView.fxml'.";
+        assert radioButtonWatched != null : "fx:id=\"radioButtonWatched\" was not injected: check your FXML file 'movieTableView.fxml'.";
         assert splitPane != null : "fx:id=\"splitPane\" was not injected: check your FXML file 'movieTableView.fxml'.";
         assert streamingColumn != null : "fx:id=\"streamingColumn\" was not injected: check your FXML file 'movieTableView.fxml'.";
         assert tableView != null : "fx:id=\"tableView\" was not injected: check your FXML file 'movieTableView.fxml'.";
         assert titleColumn != null : "fx:id=\"titleColumn\" was not injected: check your FXML file 'movieTableView.fxml'.";
-        assert updateMovieButton != null : "fx:id=\"updateMovieButton\" was not injected: check your FXML file 'movieTableView.fxml'.";
-        assert watchedColumn != null : "fx:id=\"watchedColumn\" was not injected: check your FXML file 'movieTableView.fxml'.";
+        assert watchMovieFromTableButton != null : "fx:id=\"watchMovieFromTableButton\" was not injected: check your FXML file 'movieTableView.fxml'.";
         assert yearColumn != null : "fx:id=\"yearColumn\" was not injected: check your FXML file 'movieTableView.fxml'.";
 
         
         tableView.setItems(model.moviesDBList);
         
-        genreColumn.setCellValueFactory(data -> new SimpleObjectProperty<Genre>(data.getValue().getGenre()));
-        titleColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getTitle()));
-        yearColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getYear()));
-        directorColumn.setCellValueFactory(data -> new SimpleObjectProperty<String>(data.getValue().getDirector()));
-        streamingColumn.setCellValueFactory(data -> new SimpleObjectProperty<StreamingService>(data.getValue().getStreamingService()));
+        genreColumn.setCellValueFactory(
+        		data -> new SimpleObjectProperty<Genre>(data.getValue().getGenre()));
+        titleColumn.setCellValueFactory(
+        		data -> new SimpleObjectProperty<String>(data.getValue().getTitle()));
+        yearColumn.setCellValueFactory(
+        		data -> new SimpleObjectProperty<String>(data.getValue().getYear()));
+        directorColumn.setCellValueFactory(
+        		data -> new SimpleObjectProperty<String>(data.getValue().getDirector()));
+        streamingColumn.setCellValueFactory(
+        		data -> new SimpleObjectProperty<StreamingService>(data.getValue().getStreamingService()));
+        dateColumn.setCellValueFactory(
+        		data -> new SimpleObjectProperty<LocalDate>(data.getValue().getCurrentDate()));
+        
+        //Werte aus dem Model in der Tabelle anzeigen
+        model.selectedMovieProperty().bind(tableView.getSelectionModel().selectedItemProperty());        
         
         //Filter Tabelle
         
@@ -187,10 +199,6 @@ public class TableViewMovieController extends BaseController {
 					return true;
 				} 
 				
-//				else if (data.isWatched().toLowerCase().contains(lowerCaseFilter)) {
-//					return true;
-//				}
-
 				return false;
 
 			});
